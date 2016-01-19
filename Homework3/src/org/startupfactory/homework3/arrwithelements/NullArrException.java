@@ -21,4 +21,12 @@ public class NullArrException extends Exception {
 	public NullArrException(String message) {
 		super(message);
 	}
+
+	public NullArrException(String message, Throwable e) {
+		super(message, e);
+	}
+
+	public NullArrException(Throwable e) {
+		super(e);
+	}
 }
