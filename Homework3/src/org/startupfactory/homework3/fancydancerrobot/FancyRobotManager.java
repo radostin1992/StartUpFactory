@@ -10,6 +10,8 @@ package org.startupfactory.homework3.fancydancerrobot;
  *
  */
 public class FancyRobotManager {
+	
+	// TODO: Add access modifier.
 	static FancyRobot robot;
 
 	public static void runRobot() {

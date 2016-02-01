@@ -4,11 +4,17 @@
 package org.startupfactory.homework1.bigint;
 
 /**
+ * TODO: Class comment should not be in the author tag, but above.
+ * 
  * @author Rado Program sum two numbers with human method. It get numbers as
  *         strings, so it can calculate very big numbers.
  */
 public class SumBigInt {
+	
 	/**
+	 * TODO: Method comments start with a verb. i.e. "Sums two large numbers as String"
+	 *  
+	 * TODO: those param comments are not correct. You have only two params, delete the rest.
 	 * 
 	 * @param firstNumber
 	 *            is the first number;
@@ -41,10 +47,12 @@ public class SumBigInt {
 		String sum = "";
 		if (fNum.length() < sNum.length()) {
 			for (int i = fNum.length(); i < sNum.length(); i++) {
+				// TODO: use string builder for those concatenations.
 				fNum = "0" + fNum;
 			}
 		} else if (sNum.length() < fNum.length()) {
 			for (int i = sNum.length(); i < fNum.length(); i++) {
+				// TODO: use string builder for those concatenations.
 				sNum = "0" + sNum;
 			}
 		}
@@ -68,6 +76,7 @@ public class SumBigInt {
 			}
 			sum = tempSum + sum;
 		}
+		// TODO: what if I sum 99 + 1? Does your program work with that?
 		return sum;
 	}
 

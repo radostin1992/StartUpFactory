@@ -3,6 +3,11 @@ package org.startupfactory.homework3.division;
 import org.junit.Assert;
 import org.junit.Test;
 
+/**
+ * TODO: document
+ * @author irusev
+ *
+ */
 public class TestDivision {
 	public static final DivisionTwoNumbers DIV = new DivisionTwoNumbers();
 

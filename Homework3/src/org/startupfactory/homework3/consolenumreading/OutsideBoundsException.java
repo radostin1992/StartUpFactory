@@ -1,5 +1,11 @@
 package org.startupfactory.homework3.consolenumreading;
 
+/**
+ * TODO: document.
+ * 
+ * @author irusev
+ *
+ */
 public class OutsideBoundsException extends Exception {
 	/**
 	 * 

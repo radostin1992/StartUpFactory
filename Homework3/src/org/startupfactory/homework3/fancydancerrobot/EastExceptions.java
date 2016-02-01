@@ -1,9 +1,12 @@
 package org.startupfactory.homework3.fancydancerrobot;
 
+/**
+ * TODO: document.
+ * 
+ * @author irusev
+ *
+ */
 public class EastExceptions extends Exception {
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = -2976269371255934600L;
 
 	public EastExceptions(String message) {

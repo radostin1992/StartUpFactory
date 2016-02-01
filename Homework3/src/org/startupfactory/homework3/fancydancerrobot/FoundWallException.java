@@ -4,6 +4,8 @@
 package org.startupfactory.homework3.fancydancerrobot;
 
 /**
+ * TODO: document.
+ * 
  * @author Rado
  *
  */

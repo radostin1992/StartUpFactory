@@ -11,6 +11,9 @@ package org.startupfactory.homework2.buildhouse;
  */
 public class MasionRobot extends RightTurner implements HouseBuilder {
 
+	/**
+	 * TODO: comments
+	 */
 	public MasionRobot(int street, int avenue, Direction direction, int beepers) {
 		super(street, avenue, direction, beepers);
 	}

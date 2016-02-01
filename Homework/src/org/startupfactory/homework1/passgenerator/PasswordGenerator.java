@@ -11,6 +11,7 @@ package org.startupfactory.homework1.passgenerator;
  */
 public class PasswordGenerator {
 	/**
+	 * TODO: missing comment.
 	 * 
 	 * @param length
 	 *            of the password
@@ -30,6 +31,8 @@ public class PasswordGenerator {
 			int temp = 0;
 
 			if (whichRange == 1) {
+				// I'd extract those 26, 97, 65 etc as char constant, it'll be
+				// easier to read that way.
 				temp = (int) (Math.random() * 26 + 97);
 			} else if (whichRange == 2) {
 				temp = (int) (Math.random() * 26 + 65);

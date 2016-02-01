@@ -11,7 +11,8 @@ package org.startupfactory.homework2.buildhouse;
  */
 public class RoofBuilderRobot extends RightTurner implements HouseBuilder {
 
-	public RoofBuilderRobot(int street, int avenue, Direction direction, int beepers) {
+	public RoofBuilderRobot(int street, int avenue, Direction direction,
+			int beepers) {
 		super(street, avenue, direction, beepers);
 	}
 

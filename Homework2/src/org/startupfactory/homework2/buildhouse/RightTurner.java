@@ -10,7 +10,10 @@ import kareltherobot.Robot;
  *
  */
 public class RightTurner extends Robot {
+
 	/**
+	 * TODO: document params.
+	 * 
 	 * Inherited constructor
 	 * 
 	 * @param street
@@ -23,6 +26,8 @@ public class RightTurner extends Robot {
 	}
 
 	/*
+	 * TODO: this is not a javadoc.
+	 * 
 	 * Methot which helps to turn robot to the right direction
 	 */
 	public void turnRight() {

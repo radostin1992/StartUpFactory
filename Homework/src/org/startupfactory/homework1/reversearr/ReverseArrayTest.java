@@ -11,6 +11,7 @@ import org.junit.Test;
  *
  */
 public class ReverseArrayTest {
+
 	/**
 	 * Tests the simple case when reversing array with integers.
 	 */
