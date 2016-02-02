@@ -1,10 +1,9 @@
 /**
- * 
+ * Program calculating maximum sum of subbarray.
  */
 package org.startupfactory.homework1.maxsubarrsum;
 
 /**
- * TODO: missing comment
  * 
  * @author Rado
  *
@@ -12,12 +11,11 @@ package org.startupfactory.homework1.maxsubarrsum;
 public class MaxSubarrSum {
 
 	/**
-	 * TODO: missing comment
+	 * Calculates maximum sum of subarray
 	 */
 	public static int Calculate(int[] array) {
 		int maxSoFar = 0;
 		int maxEndingHere = 0;
-		// TODO: are you sure this works correctly?
 		for (int i = 0; i < array.length; i++) {
 			maxEndingHere = maxEndingHere + array[i];
 			if (maxEndingHere < 0) {

@@ -14,4 +14,21 @@ public class TestMaxSubarrSum {
 		Assert.assertEquals(expected, actual);
 	}
 
+	@Test
+	public void testWikiData() {
+		int[] array = { -2, 1, -3, 4, -1, 2, 1, -5, 4 };
+
+		int actual = MaxSubarrSum.Calculate(array);
+		int expected = 6;
+		Assert.assertEquals(expected, actual);
+	}
+
+	@Test
+	public void simpleTest() {
+		int[] array = { -2, 1, -3 };
+
+		int actual = MaxSubarrSum.Calculate(array);
+		int expected = 1;
+		Assert.assertEquals(expected, actual);
+	}
 }
