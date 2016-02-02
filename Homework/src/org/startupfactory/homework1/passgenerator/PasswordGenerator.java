@@ -1,6 +1,4 @@
-/**
- * 
- */
+
 package org.startupfactory.homework1.passgenerator;
 
 /**
@@ -11,33 +9,28 @@ package org.startupfactory.homework1.passgenerator;
  */
 public class PasswordGenerator {
 	/**
-	 * TODO: missing comment.
+	 * Generate password and returns it as string
 	 * 
 	 * @param length
-	 *            of the password
-	 * @param whichRange
-	 *            - 1 - symbols "a" to "z" 2 - symbols "A" to "Z" 3 - symbols
-	 *            "0" to "9"
-	 * @param temp
-	 *            - random number from 97 to 127
-	 * @param c
-	 *            - convert temp to a character
-	 * @return password - generated password
+	 *            desired length of the password
+	 * @return password generated string password
 	 */
 	public static String generate(int length) {
 		String password = "";
+
 		for (int i = 0; i < length; i++) {
+			int smallLetters = (int) (Math.random() * 26 + 97);
+			int bigLetters = (int) (Math.random() * 26 + 65);
+			int numbers = (int) (Math.random() * 10 + 48);
 			int whichRange = (int) (Math.random() * 3 + 1);
 			int temp = 0;
 
 			if (whichRange == 1) {
-				// I'd extract those 26, 97, 65 etc as char constant, it'll be
-				// easier to read that way.
-				temp = (int) (Math.random() * 26 + 97);
+				temp = smallLetters;
 			} else if (whichRange == 2) {
-				temp = (int) (Math.random() * 26 + 65);
+				temp = bigLetters;
 			} else if (whichRange == 3) {
-				temp = (int) (Math.random() * 10 + 48);
+				temp = numbers;
 			}
 
 			char c = (char) temp;
