@@ -12,9 +12,6 @@ import org.junit.Test;
  */
 public class ReverseArrayTest {
 
-	/**
-	 * Tests the simple case when reversing array with integers.
-	 */
 	@Test
 	public void testSimpleCase() {
 		int[] array = { 1, 2, 3, 4, 5 };
@@ -24,9 +21,6 @@ public class ReverseArrayTest {
 		Assert.assertArrayEquals(expected, array);
 	}
 
-	/**
-	 * Tests when the method is given null as input argument.
-	 */
 	@Test(expected = NullPointerException.class)
 	public void testNullArray() {
 		int[] input = null;
