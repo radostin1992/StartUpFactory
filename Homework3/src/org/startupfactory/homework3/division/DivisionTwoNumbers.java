@@ -10,42 +10,35 @@ package org.startupfactory.homework3.division;
  *
  */
 public class DivisionTwoNumbers {
-	// TODO: why are those member variables? Is it needed for them to be outside
-	// of the sum method?
-	int firstNum = 0;
-	int secondNum = 0;
-	int result = 0;
-	int remainder = 0;
+	private static int RESULT = 0;
+	private static int REMAINDER = 0;
 
 	/**
-	 * TODO: missing comment, also the param comments are not correct.
+	 * Devides two integer numbers
 	 * 
 	 * @param a
 	 *            - first number which will be devided;
 	 * @param b
 	 *            - second number which will devide;
-	 * @return
-	 * @throws Exception
-	 *             IllegalArgumentException if second number is zero;
+	 * @throws IllegalArgumentException
+	 *             if second number is zero;
 	 */
 	public void division(int a, int b) throws Exception {
-		firstNum = a;
-		secondNum = b;
+		int firstNum = a;
+		int secondNum = b;
 
 		String resStr = null;
 
 		try {
 			if (secondNum == 0) {
 				System.out.println("Division by zero is not allowed!");
-				throw new IllegalArgumentException(
-						"Division by zero is not allowed!");
+				throw new IllegalArgumentException("Division by zero is not allowed!");
 
 			}
 			if (secondNum != 0) {
-				result = firstNum / secondNum;
-				remainder = firstNum - (result * secondNum);
-				resStr = firstNum + "/" + secondNum + "=" + result
-						+ " with remainder:" + remainder;
+				RESULT = firstNum / secondNum;
+				REMAINDER = firstNum - (RESULT * secondNum);
+				resStr = firstNum + "/" + secondNum + "=" + RESULT + " with remainder:" + REMAINDER;
 				System.out.println(resStr);
 			}
 
@@ -55,10 +48,10 @@ public class DivisionTwoNumbers {
 	}
 
 	public int getResult() {
-		return result;
+		return RESULT;
 	}
 
 	public int getRemainder() {
-		return remainder;
+		return REMAINDER;
 	}
 }

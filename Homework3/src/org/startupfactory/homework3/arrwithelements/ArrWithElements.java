@@ -42,18 +42,16 @@ public class ArrWithElements {
 	/**
 	 * Removes last element of the array.
 	 * 
-	 * @throws NullArrException
+	 * @throws EmptyListException
 	 *             if the array is empty;
 	 */
-	public void remove() throws NullArrException {
+	public void remove() throws EmptyListException {
 		if (i > 0) {
 			ARR[i - 1] = 0;
 			i--;
 		} else {
 			System.out.println("Array is empty - nothing to remove!");
-			// TODO: the name of this exception is a bit confusing. I'd name it
-			// something like EmptyListException.
-			throw new NullArrException("Array is empty - nothing to remove!");
+			throw new EmptyListException("Array is empty - nothing to remove!");
 		}
 
 	}
@@ -62,9 +60,6 @@ public class ArrWithElements {
 	 * Prints all elements of the array;
 	 */
 	public void printAllElements() {
-		// TODO: don't leave commented out code.
-
-		// System.out.println(Arrays.toString(ARR));
 		for (int j = 0; j < i; j++) {
 			System.out.println(ARR[j]);
 		}

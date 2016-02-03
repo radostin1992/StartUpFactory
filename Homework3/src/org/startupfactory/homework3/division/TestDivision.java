@@ -4,17 +4,15 @@ import org.junit.Assert;
 import org.junit.Test;
 
 /**
- * TODO: document
- * @author irusev
- *
+ * Tests DivisionTwoNumbers class
+ * 
+ * @author Rado
  */
 public class TestDivision {
 	public static final DivisionTwoNumbers DIV = new DivisionTwoNumbers();
 
 	/**
 	 * Test for throwing exception when second number is zero.
-	 * 
-	 * @throws Exception
 	 */
 	@Test(expected = IllegalArgumentException.class)
 	public void testNPE() throws Exception {
@@ -26,8 +24,6 @@ public class TestDivision {
 
 	/**
 	 * Testing result from the division;
-	 * 
-	 * @throws Exception
 	 */
 	@Test
 	public void testDivisionResult() throws Exception {
@@ -42,8 +38,6 @@ public class TestDivision {
 
 	/**
 	 * Test the remainder from the division;
-	 * 
-	 * @throws Exception
 	 */
 	@Test
 	public void testDivisionRemainder() throws Exception {

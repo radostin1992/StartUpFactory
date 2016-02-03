@@ -28,11 +28,11 @@ public class TestArrWithElements {
 	/**
 	 * Test removing element from the array;
 	 * 
-	 * @throws NullArrException
+	 * @throws EmptyListException
 	 * @throws FullArrException
 	 */
 	@Test
-	public void testRemovingElement() throws NullArrException, FullArrException {
+	public void testRemovingElement() throws EmptyListException, FullArrException {
 		ArrWithElements element = new ArrWithElements();
 		element.add(2);
 		element.add(5);
@@ -61,10 +61,10 @@ public class TestArrWithElements {
 	/**
 	 * Test removing element from the array when it is empty;
 	 * 
-	 * @throws NullArrException
+	 * @throws EmptyListException
 	 */
-	@Test(expected = NullArrException.class)
-	public void testRemovingElementsToEmptyArr() throws NullArrException {
+	@Test(expected = EmptyListException.class)
+	public void testRemovingElementsToEmptyArr() throws EmptyListException {
 		ArrWithElements element = new ArrWithElements();
 		element.remove();
 	}

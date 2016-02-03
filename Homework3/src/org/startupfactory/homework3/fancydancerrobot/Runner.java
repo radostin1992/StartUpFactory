@@ -1,11 +1,10 @@
-/**
- * 
- */
 package org.startupfactory.homework3.fancydancerrobot;
 
 import kareltherobot.World;
 
 /**
+ * Runs the program
+ * 
  * @author Rado
  *
  */

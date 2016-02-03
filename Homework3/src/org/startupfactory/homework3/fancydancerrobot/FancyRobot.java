@@ -14,11 +14,26 @@ import kareltherobot.Robot;
  *
  */
 public class FancyRobot extends Robot {
-
+	/**
+	 * Inherited constructor
+	 * 
+	 * @param street
+	 *            starting position to x coordinate
+	 * @param avenue
+	 *            starting position to y coordinate
+	 */
 	public FancyRobot(int street, int avenue) {
 		super(street, avenue, Directions.North, 0);
 	}
 
+	/**
+	 * Moves the robot
+	 * 
+	 * @throws FoundWallException
+	 *             when robot found wall
+	 * @throws EastExceptions
+	 *             when robot turns to east
+	 */
 	public void carefulMove() throws FoundWallException, EastExceptions {
 		if (facingEast()) {
 			throw new EastExceptions("The robot was blinded by the sun");

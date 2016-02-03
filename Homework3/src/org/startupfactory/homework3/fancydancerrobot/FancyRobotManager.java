@@ -1,6 +1,3 @@
-/**
- * 
- */
 package org.startupfactory.homework3.fancydancerrobot;
 
 /**
@@ -10,16 +7,17 @@ package org.startupfactory.homework3.fancydancerrobot;
  *
  */
 public class FancyRobotManager {
-	
-	// TODO: Add access modifier.
-	static FancyRobot robot;
+	private static FancyRobot ROBOT;
 
+	/**
+	 * Runs the robot
+	 */
 	public static void runRobot() {
-		robot = new FancyRobot(6, 2);
-		robot.setVisible(true);
+		ROBOT = new FancyRobot(6, 2);
+		ROBOT.setVisible(true);
 		while (true) {
 			try {
-				robot.carefulMove();
+				ROBOT.carefulMove();
 			} catch (FoundWallException | EastExceptions e) {
 				e.printStackTrace();
 			} finally {
@@ -28,18 +26,35 @@ public class FancyRobotManager {
 		}
 	}
 
+	/**
+	 * Makes decision about the direction
+	 */
 	static void dontStop() {
 		int random = (int) Math.floor(Math.random() * (3 - 0)) + 0;
 		if (random == 0) {
-			robot.turnLeft();
+			ROBOT.turnLeft();
 		} else if ((random == 1)) {
-			robot.turnLeft();
-			robot.turnLeft();
+			ROBOT.turnLeft();
+			ROBOT.turnLeft();
 		} else if (random == 2) {
-			robot.turnLeft();
-			robot.turnLeft();
-			robot.turnLeft();
+			ROBOT.turnLeft();
+			ROBOT.turnLeft();
+			ROBOT.turnLeft();
 		}
 	}
 
+	/**
+	 * @return the rOBOT
+	 */
+	public static FancyRobot getROBOT() {
+		return ROBOT;
+	}
+
+	/**
+	 * @param rOBOT
+	 *            the rOBOT to set
+	 */
+	public static void setROBOT(FancyRobot rOBOT) {
+		ROBOT = rOBOT;
+	}
 }
