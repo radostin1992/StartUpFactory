@@ -4,8 +4,9 @@
 package org.startupfactory.homework2.buildhouse;
 
 /**
- * TODO: document! Especially interfaces.
+ * Interface which have method for building the house
  * 
+ * @see MasionRobot, RoofBuilderRobot, WindowsAndDoor
  * @author Rado
  *
  */
