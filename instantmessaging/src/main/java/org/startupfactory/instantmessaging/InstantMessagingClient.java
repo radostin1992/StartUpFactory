@@ -94,6 +94,7 @@ public class InstantMessagingClient {
 				}
 			} else {
 				try {
+					LOGGER.error("The username is incorrect!It must contain at lest 3 to 10 characters and numbers.");
 					throw new IncorectUsernameException("The username is incorect!");
 				} catch (IncorectUsernameException e) {
 					e.printStackTrace();

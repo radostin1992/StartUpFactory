@@ -64,7 +64,7 @@ public class InstantMessagingWorker implements Runnable {
 				LOGGER.info("{}:'{}', says: {}", getCurrentTimeStamp(), userName, clientInput);
 
 			}
-			LOGGER.info("'{}' left the server!");
+			LOGGER.info("'{}' left the server!", userName);
 			sendToAll("'" + userName + "'" + " left the server!");
 			InstantMessagingServer.getUsersOnline().remove(userName);
 
