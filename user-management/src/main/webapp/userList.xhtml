@@ -1,0 +1,80 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html" template="/template.xhtml">
+	<ui:define name="header">
+		<f:metadata>
+			<f:viewParam name="page" value="#{userListController.page}" />
+			<f:viewAction action="#{userListController.onPageLoad()}" />
+		</f:metadata>
+	</ui:define>
+
+	<ui:define name="body">
+		<div class="container-fluid">
+			<h:form id="userListForm" class="form-horizontal">
+				<h:dataTable id="userList" value="#{userListController.users}"
+					var="user" styleClass="table table-hover">
+					<h:column>
+						<f:facet name="header">#{labels.username}</f:facet>
+						<img src="/user-management/image?id=#{user.username}&amp;type=user"
+							class="img-circle" width="64" height="64" />
+						
+					#{user.username}
+				</h:column>
+					<h:column>
+						<f:facet name="header">#{labels.first_name}</f:facet>
+					#{user.firstName}
+				</h:column>
+					<h:column>
+						<f:facet name="header">#{labels.last_name}</f:facet>
+					#{user.lastName}
+				</h:column>
+					<h:column>
+						<f:facet name="header">#{labels.email}</f:facet>
+					#{user.email}
+				</h:column>
+					<h:column>
+						<h:button id="edit-button" class="btn btn-warning button-margin"
+							value="#{labels.edit}" outcome="user"
+							rendered="#{identityController.admin || identityController.isCurrentUser(user)}">
+							<f:param name="id" value="#{user.id}"></f:param>
+						</h:button>
+						<h:commandButton id="delete-button" class="btn btn-danger"
+							action="#{userListController.delete(user)}"
+							value="#{labels.delete}"
+							rendered="#{identityController.admin}">
+							<f:ajax render="userListForm:userList" />
+						</h:commandButton>
+					</h:column>
+
+				</h:dataTable>
+
+				<div style="text-align: center">
+					<ul class="pagination">
+						<li class="#{userListController.prevEnabled ? '' : 'disabled'}">
+							<h:link id="prev-page" value="«" outcome="userList" disabled="#{!userListController.prevEnabled}">
+								<f:param name="page" value="#{userListController.page-1}" />
+							</h:link>
+						</li>
+						<ui:repeat value="#{userListController.pages}" var="currentPage">
+							<li class="#{userListController.page==currentPage ? 'active' : ''}">
+								<h:link value="#{currentPage}" outcome="userList"
+								 	disabled="#{userListController.page == currentPage}">
+									<f:param name="page" value="#{currentPage}"/>
+								</h:link>
+							</li>
+						</ui:repeat>
+						<li class="#{userListController.nextEnabled ? '' : 'disabled'}">
+							<h:link id="next-page" value="»" outcome="userList" disabled="#{!userListController.nextEnabled}">
+								<f:param name="page" value="#{userListController.page+1}" />
+							</h:link>
+						</li>
+					</ul>
+				</div>
+
+			</h:form>
+		</div>
+	</ui:define>
+</ui:composition>
+

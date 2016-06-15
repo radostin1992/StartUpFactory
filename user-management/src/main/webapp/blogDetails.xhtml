@@ -1,0 +1,76 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html" template="/template.xhtml">
+
+	<ui:define name="head">
+		<f:metadata>
+			<f:viewParam name="id" value="#{blogDetailsController.id}" />
+			<f:viewAction action="#{blogDetailsController.onPageLoad()}" />
+		</f:metadata>
+	</ui:define>
+
+	<ui:define name="body">
+		<div class="container-fluid">
+			<h:form id="blogDetailsForm" class="form-horizontal"
+				enctype="multipart/form-data">
+				<div class="form-group">
+
+
+					<h1>#{blogDetailsController.blog.title}</h1>
+					<h4>Създаден от потребител:
+						#{blogDetailsController.blog.author} на дата:
+						#{blogDetailsController.blog.date.toLocaleString()}, последни
+						промени:#{blogDetailsController.blog.lastModified.toLocaleString()}
+					</h4>
+					<p class="emptySpace">
+						<span></span><br />
+					</p>
+					<p>#{blogDetailsController.blog.content}</p>
+					<h:panelGroup layout="block" rendered="#{identityController.loggedIn}">
+					<div class="addComment" >
+						<h2>Добавяне на коментар</h2>
+						<p class="emptySpace">
+							<span></span><br />
+						</p>
+
+						<form>
+							<div class="comments-group">
+								<label for="username">Потребител</label>
+								<h:inputText id="userToShow"
+									value="#{blogController.getUsername()}"
+									styleClass="form-control" required="true" disabled="true" />
+
+							</div>
+							<div class="comments-group">
+								<label for="exampleInputPassword1">Коментар</label>
+								<h:inputTextarea value="" styleClass="form-control"
+									id="commentContent" required="true">
+									<f:validateLength minimum="6" maximum="500" />
+								</h:inputTextarea>
+							</div>
+
+
+							<button type="submit" class="btn btn-default">Публикувай</button>
+						</form>
+
+					</div>
+					</h:panelGroup>
+					<h:dataTable id="comment" value="#{blogDetailsController.comments}"
+						var="comment" styleClass="table table-hover">
+
+						<h:column>
+						
+					#{comment.content}
+				</h:column>
+
+
+
+					</h:dataTable>
+
+				</div>
+			</h:form>
+		</div>
+	</ui:define>
+</ui:composition>

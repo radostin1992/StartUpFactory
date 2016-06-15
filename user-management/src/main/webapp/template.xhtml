@@ -1,0 +1,77 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
+
+<h:head>
+	<meta charset="utf-8" />
+	<h:outputScript name="javax.faces/jsf.js" />
+	<link
+		href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"
+		rel="stylesheet" />
+
+	<link href="/user-management/resources/user.css" rel="stylesheet" />
+
+	<f:metadata>
+		<ui:insert name="view-metadata" />
+	</f:metadata>
+</h:head>
+<body>
+	<div>
+		<div class="header">
+			<nav class="navbar navbar-default">
+			<div class="navbar-header">
+				<a class="navbar-brand" href="#">#{labels.userManagement}</a>
+			</div>
+
+			<h:form id="loginForm" styleClass="navbar-form pull-right"
+				rendered="#{!identityController.loggedIn}">
+				<div class="form-group">
+					<h:inputText id="username" value="#{identityController.username}"
+						p:placeholder="#{labels.username}" styleClass="form-control" />
+				</div>
+				<div class="form-group">
+					<h:inputSecret id="password" value="#{identityController.password}"
+						p:placeholder="#{labels.password}" styleClass="form-control" />
+				</div>
+				<div class="form-group">
+					<h:commandButton action="#{identityController.login()}"
+						value="#{labels.login}" styleClass="btn btn-default" />
+				</div>
+			</h:form> 
+			<h:form id="logoutForm"
+				rendered="#{identityController.loggedIn}"
+				styleClass="navbar-text pull-right">
+					#{identityController.currentUser.username}
+				<h:commandLink action="#{identityController.logout()}"
+					value="#{labels.logout}" styleClass="navbar-link" />
+			</h:form> </nav>
+		</div>
+		<div class="container-fluid">
+			<div class="row">
+				<div class="navigation col-md-2">
+					<ul class="nav nav-pills nav-stacked">
+						<li><h:link id="users-link" value="#{labels.users_list}"
+								outcome="userList"></h:link></li>
+						<li><h:link id="blog-link" value="#{labels.blog}"
+								outcome="blogList"></h:link></li>
+						<li><h:link id="create-blog-link" 
+						rendered="#{identityController.loggedIn}"
+						value="#{labels.add_blog}"
+								outcome="blog"></h:link></li>
+						<li><h:link id="create-user-link" 
+						rendered="#{identityController.admin}"
+						value="#{labels.add_user}"
+								outcome="user"></h:link></li>
+					</ul>
+				</div>
+				<div class="body col-md-10">
+					<ui:insert name="body" />
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

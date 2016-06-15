@@ -1,0 +1,80 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html" template="/template.xhtml">
+
+	<ui:define name="head">
+		<f:metadata>
+			<f:viewParam name="id" value="#{blogController.id}" />
+			<f:viewAction action="#{blogController.onPageLoad()}" />
+		</f:metadata>
+	</ui:define>
+
+	<ui:define name="body">
+		<div class="container-fluid">
+			<h:form id="blogForm" class="form-horizontal" enctype="multipart/form-data">
+				<div class="form-group">
+					<label for="title" class="col-sm-2 control-label">#{labels.blogTitle}</label>
+					<div class="col-sm-5">
+						<h:inputText value="#{blogController.blog.title}"
+							styleClass="form-control" id="title" required="true"
+							disabled="#{ blogController.blog.id != null}"
+							validator="#{blogController.checkForExistingBlog}">
+							<f:validateLength minimum="6" maximum="20" />
+							<f:ajax render="@this blogForm:title_message" />
+						</h:inputText>
+					</div>
+					<div class="col-sm-5 text-danger">
+						<h:message id="title_message" styleClass="message" for="title" />
+					</div>
+				</div>
+				
+				<div class="form-group">
+					<label for="content" class="col-sm-2 control-label">#{labels.content}</label>
+					<div class="col-sm-5">
+						<h:inputTextarea value="#{blogController.blog.content}"
+							styleClass="form-control" id="content" required="true">
+							<f:validateLength minimum="6" maximum="100000" />
+						</h:inputTextarea>
+					</div>
+
+					<div class="col-sm-5 text-danger">
+						<h:message styleClass="message" for="content" />
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="image" class="col-sm-2 control-label">#{labels.image}</label>
+					<div class="col-sm-5">
+						<h:inputFile id="image" value="#{blogController.image}" validator="#{blogController.validateImage}"/>
+					</div>
+					<div class="col-sm-5 text-danger">
+						<h:message styleClass="message" for="image" />
+					</div>
+				</div>
+				
+				<div class="form-group">
+					<label for="author" class="col-sm-2 control-label">#{labels.author}</label>
+					<div class="col-sm-5">
+						<h:inputText id="authorToShow" value="#{blogController.getUsername()}" 
+							styleClass="form-control"  required="true" disabled="true">
+							<f:validateLength maximum="20" />
+						 	
+						</h:inputText>
+						
+					</div>
+				</div>
+
+				<div class="form-group">
+					<div class="col-sm-offset-2 col-sm-5">
+						<h:commandButton action="#{blogController.save()}"
+							rendered="#{identityController.loggedIn}"
+							styleClass="btn btn-default" id="save"
+							value="#{labels.save_button}" />
+					</div>
+
+				</div>
+			</h:form>
+		</div>
+	</ui:define>
+</ui:composition>

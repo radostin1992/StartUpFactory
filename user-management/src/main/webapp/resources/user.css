@@ -1,0 +1,23 @@
+.message{
+	margin-top: 6px;
+	display: block;
+}
+
+.table tbody>tr > td {
+    vertical-align: middle;
+}
+
+.button-margin{
+	margin-right: 5px;
+}
+
+.comments{
+	padding: 10px;
+	margin: 100px;
+	border: 5px;
+	border-top-style: solid;
+}
+
+.comments-group{
+	margin: 5px;
+}

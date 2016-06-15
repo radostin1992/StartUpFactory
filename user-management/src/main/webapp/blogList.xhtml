@@ -1,0 +1,90 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html" template="/template.xhtml">
+	<ui:define name="header">
+		<f:metadata>
+			<f:viewParam name="page" value="#{blogListController.page}" />
+			<f:viewAction action="#{blogListController.onPageLoad()}" />
+		</f:metadata>
+	</ui:define>
+
+	<ui:define name="body">
+		<div class="container-fluid">
+			<h:form id="blogListForm" class="form-horizontal">
+				<h:dataTable id="blogList" value="#{blogListController.blogs}"
+					var="blog" styleClass="table table-hover">
+					<h:column>
+						<f:facet name="header">#{labels.title}</f:facet>
+						<img
+							src="/user-management/image?id=#{blog.title}&amp;type=blog"
+							class="img-thumbnail" width="64" height="64" />		
+										
+								<h:link value="#{blog.title}" outcome="blogDetails" >
+								<f:param name="id" value="#{blog.id}" />
+								</h:link>
+								
+				</h:column>
+					<h:column>
+						<f:facet name="header">#{labels.author}</f:facet>
+					#{blog.author}
+				</h:column>
+
+					<h:column>
+						<f:facet name="header">#{labels.date}</f:facet>
+					#{blog.date.toLocaleString()}
+					</h:column>
+					
+					<h:column>
+						<f:facet name="header">#{labels.lastModified}</f:facet>
+					#{blog.lastModified.toLocaleString()}
+					</h:column>
+
+					<h:column>
+						<h:button id="edit-button" class="btn btn-warning button-margin"
+							value="#{labels.edit}" outcome="blog"
+							rendered="#{identityController.isCurrentUserAuthor(blog.author) || identityController.admin}">
+							<f:param name="id" value="#{blog.id}"></f:param>
+						</h:button>
+						<h:commandButton id="delete-button" class="btn btn-danger"
+							action="#{blogListController.delete(blog)}"
+							value="#{labels.delete}"
+							rendered="#{identityController.isCurrentUserAuthor(blog.author) || identityController.admin}">
+							<f:ajax render="blogListForm:blogList" />
+						</h:commandButton>
+					</h:column>
+
+				</h:dataTable>
+
+				<div style="text-align: center">
+					<ul class="pagination">
+						<li class="#{blogListController.prevEnabled ? '' : 'disabled'}">
+							<h:link id="prev-page" value="«" outcome="blogList"
+								disabled="#{!blogListController.prevEnabled}">
+								<f:param name="page" value="#{blogListController.page-1}" />
+							</h:link>
+						</li>
+						<ui:repeat value="#{blogListController.pages}" var="currentPage">
+							<li
+								class="#{blogListController.page==currentPage ? 'active' : ''}">
+								<h:link value="#{currentPage}" outcome="blogList"
+									disabled="#{blogListController.page == currentPage}">
+									<f:param name="page" value="#{currentPage}" />
+								</h:link>
+							</li>
+						</ui:repeat>
+						<li class="#{blogListController.nextEnabled ? '' : 'disabled'}">
+							<h:link id="next-page" value="»" outcome="blogList"
+								disabled="#{!blogListController.nextEnabled}">
+								<f:param name="page" value="#{blogListController.page+1}" />
+							</h:link>
+						</li>
+					</ul>
+				</div>
+
+			</h:form>
+		</div>
+	</ui:define>
+</ui:composition>
+

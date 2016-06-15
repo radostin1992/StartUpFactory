@@ -1,0 +1,168 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html" template="/template.xhtml">
+
+	<ui:define name="head">
+		<f:metadata>
+			<f:viewParam name="id" value="#{userController.id}" />
+			<f:viewAction action="#{userController.onPageLoad()}" />
+		</f:metadata>
+	</ui:define>
+
+	<ui:define name="body">
+		<div class="container-fluid">
+			<h:form id="userForm" class="form-horizontal" enctype="multipart/form-data">
+				<div class="form-group">
+					<label for="user" class="col-sm-2 control-label">#{labels.username}</label>
+					<div class="col-sm-5">
+						<h:inputText value="#{userController.user.username}"
+							styleClass="form-control" id="user" required="true"
+							disabled="#{userController.user.id != null}"
+							validator="#{userController.checkForExistingUser}">
+							<f:validateLength minimum="6" maximum="20" />
+							<f:ajax render="@this userForm:user_message" />
+						</h:inputText>
+					</div>
+					<div class="col-sm-5 text-danger">
+						<h:message id="user_message" styleClass="message" for="user" />
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="password" class="col-sm-2 control-label">#{labels.password}</label>
+					<div class="col-sm-5">
+						<h:inputSecret value="#{userController.user.password}"
+							styleClass="form-control" id="password" required="true"
+							redisplay="true">
+							<f:validateLength minimum="6" maximum="20" />
+						</h:inputSecret>
+					</div>
+					<div class="col-sm-5 text-danger">
+						<h:message styleClass="message" for="password" />
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="verify-password" class="col-sm-2 control-label">#{labels.verify_password}</label>
+					<div class="col-sm-5">
+						<h:inputSecret value="#{userController.verifyPassword}"
+							styleClass="form-control" id="verify-password" required="true"
+							redisplay="true" />
+					</div>
+					<div class="col-sm-5 text-danger">
+						<h:message styleClass="message" for="verify-password" />
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="email" class="col-sm-2 control-label">#{labels.email}</label>
+					<div class="col-sm-5">
+						<h:inputText value="#{userController.user.email}"
+							styleClass="form-control" id="email" required="true"
+							validatorMessage="#{labels.invalid_email}">
+							<f:validateRegex pattern="[\w]+@(\w+.)+\w{2,4}" />
+						</h:inputText>
+					</div>
+					<div class="col-sm-5 text-danger">
+						<h:message styleClass="message" for="email" />
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="first-name" class="col-sm-2 control-label">#{labels.first_name}</label>
+					<div class="col-sm-5">
+						<h:inputText value="#{userController.user.firstName}"
+							styleClass="form-control" id="first-name" required="true">
+							<f:validateLength maximum="20" />
+						</h:inputText>
+					</div>
+					<div class="col-sm-5 text-danger">
+						<h:message styleClass="message" for="first-name" />
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="last-name" class="col-sm-2 control-label">#{labels.last_name}</label>
+					<div class="col-sm-5">
+						<h:inputText value="#{userController.user.lastName}"
+							styleClass="form-control" id="last-name" required="true">
+							<f:validateLength maximum="20" />
+						</h:inputText>
+					</div>
+					<div class="col-sm-5 text-danger">
+						<h:message styleClass="message" for="last-name" />
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="age" class="col-sm-2 control-label">#{labels.age}</label>
+					<div class="col-sm-5">
+						<h:inputText value="#{userController.user.age}"
+							styleClass="form-control" id="age" required="true">
+							<f:validateLongRange minimum="16" />
+						</h:inputText>
+					</div>
+					<div class="col-sm-5 text-danger">
+						<h:message styleClass="message" for="age" />
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="country" class="col-sm-2 control-label">#{labels.country}</label>
+					<div class="col-sm-5">
+						<h:selectOneMenu value="#{userController.user.country}"
+							styleClass="form-control" id="country" required="true">
+							<f:selectItem itemLabel="------" noSelectionOption="true" />
+							<f:selectItem itemLabel="Bulgaria" itemValue="BG" />
+							<f:selectItem itemLabel="Russia" itemValue="RU" />
+						</h:selectOneMenu>
+					</div>
+					<div class="col-sm-5 text-danger">
+						<h:message styleClass="message" for="country" />
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="address" class="col-sm-2 control-label">#{labels.address}</label>
+					<div class="col-sm-5">
+						<h:inputTextarea value="#{userController.user.address}"
+							styleClass="form-control" id="address" required="true">
+							<f:validateLength minimum="3" maximum="25" />
+						</h:inputTextarea>
+					</div>
+
+					<div class="col-sm-5 text-danger">
+						<h:message styleClass="message" for="address" />
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="image" class="col-sm-2 control-label">#{labels.image}</label>
+					<div class="col-sm-5">
+						<h:inputFile id="image" value="#{userController.image}" validator="#{userController.validaeImage}"/>
+					</div>
+					<div class="col-sm-5 text-danger">
+						<h:message styleClass="message" for="image" />
+					</div>
+				</div>
+				
+				<div class="form-group">
+					<div class="col-sm-offset-2 col-sm-10">
+						<div class="checkbox">
+							<label> <h:selectBooleanCheckbox
+									value="#{userController.termsAccepted}" id="terms"
+									disabled="#{userController.user.id != null}" />
+								#{labels.terms}
+							</label>
+						</div>
+					</div>
+					<div class="col-sm-offset-2 col-sm-10 text-danger">
+						<h:message styleClass="message" for="terms" />
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="col-sm-offset-2 col-sm-5">
+						<h:commandButton action="#{userController.save()}"
+							rendered="#{identityController.isCurrentUser(userController.user)||identityController.admin}"
+							styleClass="btn btn-default" id="save"
+							value="#{labels.save_button}" />
+					</div>
+
+				</div>
+			</h:form>
+		</div>
+	</ui:define>
+</ui:composition>
