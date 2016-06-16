@@ -12,65 +12,109 @@
 	</ui:define>
 
 	<ui:define name="body">
-		<div class="container-fluid">
-			<h:form id="blogDetailsForm" class="form-horizontal"
-				enctype="multipart/form-data">
-				<div class="form-group">
 
-
-					<h1>#{blogDetailsController.blog.title}</h1>
-					<h4>Създаден от потребител:
-						#{blogDetailsController.blog.author} на дата:
-						#{blogDetailsController.blog.date.toLocaleString()}, последни
-						промени:#{blogDetailsController.blog.lastModified.toLocaleString()}
-					</h4>
+		<div class="form-group">
+			<h1>
+				#{blogDetailsController.blog.title}<small></small>
+			</h1>
+			<h4>
+				<small>#{labels.createdByUser}
+					#{blogDetailsController.blog.author} #{labels.onDate}
+					#{blogDetailsController.blog.date.toLocaleString()}, #{labels.lastMod} #{blogDetailsController.blog.lastModified.toLocaleString()}
+				</small>
+			</h4>
+			<p class="emptySpace">
+				<span></span><br />
+			</p>
+			
+			
+			
+			<div class="img">
+			<img
+				src="/user-management/image?id=#{blogDetailsController.blog.title}&amp;type=blog"
+							width="300" height="300" class="img"/>	</div>
+			<div class="form-group">			
+				#{blogDetailsController.blog.content}
+			</div>
+			
+	<div style="clear:both;"></div>		
+	<h:form id="notLoggedInForm" class="form-horizontal"
+				rendered="#{!identityController.loggedIn}">
+				<div class="comment-group">
+				<h2>#{labels.privileges}</h2>
+				</div>
+				</h:form>
+			<h:form id="addCommentForm" class="form-horizontal"
+				rendered="#{identityController.loggedIn}">
+				<div class="comment-group">
+					<h2>#{labels.addComment}</h2>
 					<p class="emptySpace">
 						<span></span><br />
 					</p>
-					<p>#{blogDetailsController.blog.content}</p>
-					<h:panelGroup layout="block" rendered="#{identityController.loggedIn}">
-					<div class="addComment" >
-						<h2>Добавяне на коментар</h2>
-						<p class="emptySpace">
-							<span></span><br />
-						</p>
-
-						<form>
-							<div class="comments-group">
-								<label for="username">Потребител</label>
-								<h:inputText id="userToShow"
-									value="#{blogController.getUsername()}"
-									styleClass="form-control" required="true" disabled="true" />
-
-							</div>
-							<div class="comments-group">
-								<label for="exampleInputPassword1">Коментар</label>
-								<h:inputTextarea value="" styleClass="form-control"
-									id="commentContent" required="true">
-									<f:validateLength minimum="6" maximum="500" />
-								</h:inputTextarea>
-							</div>
 
 
-							<button type="submit" class="btn btn-default">Публикувай</button>
-						</form>
+					<div class="comments-group">
+						<label for="comment">#{labels.addCommentByUser}</label>
+						<h:inputText id="userToShow"
+							value="#{identityController.currentUser.username}" styleClass="form-control"
+							required="true" disabled="true" />
 
 					</div>
-					</h:panelGroup>
-					<h:dataTable id="comment" value="#{blogDetailsController.comments}"
-						var="comment" styleClass="table table-hover">
+					<div class="comments-group">
+						<label for="comment">#{labels.commentToAdd}</label>
+						<h:inputTextarea value="#{blogDetailsController.comment.content}"
+							styleClass="form-control"
+							id="content" required="true">
+							<f:validateLength minimum="3" maximum="500" />
+							<f:ajax render="addCommentForm:comment_message" />
+						</h:inputTextarea>
+					</div>
 
-						<h:column>
-						
-					#{comment.content}
-				</h:column>
 
 
-
-					</h:dataTable>
-
+					<div class="col-sm-offset-5 col-sm-5">
+						<h:commandButton action="#{blogDetailsController.addComment}"
+							 rendered="#{identityController.loggedIn}" 
+							id="save" styleClass="btn btn-default" value="#{labels.publish}">
+						</h:commandButton>
+					</div>
 				</div>
 			</h:form>
+
+
+<div style="clear:both;"></div>
+			<h:form class="commentsListForm">
+			<div class="comment-group">
+				<h2>#{labels.commentList}</h2>
+				<h:dataTable id="comment" value="#{blogDetailsController.comments}"
+					var="comment" styleClass="table table-hover">
+					<h:column>#{comment.datePublished.toLocaleString()}</h:column>
+					<h:column>
+						<img
+							src="/user-management/image?id=#{comment.publisher}&amp;type=user"
+							class="img-circle" width="64" height="64" />
+								#{comment.publisher}
+								
+
+
+								</h:column>
+					<h:column>
+									#{comment.content}
+								</h:column>
+								
+								<h:column>
+									<h:commandButton id="delete-button" class="btn btn-danger"
+							action="#{blogDetailsController.deleteComment(comment)}"
+							value="#{labels.delete}"
+							rendered="#{identityController.isCurrentUserAuthor(blogDetailsController.blog.author) || identityController.admin}">
+							<f:ajax render="commentsListForm"/>
+						</h:commandButton>
+								</h:column>
+				</h:dataTable>
+			</div>
+		</h:form>
 		</div>
+
+
 	</ui:define>
 </ui:composition>

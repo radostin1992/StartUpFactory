@@ -1,5 +1,8 @@
 package mse.usermanagement.model;
 
+import java.util.Date;
+
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -10,7 +13,8 @@ import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 @Entity
-@NamedQueries({ @NamedQuery(name = "Comment.getComments", query = "from Comment where blogId=:blogId") })
+@NamedQueries({ @NamedQuery(name = "Comment.getComments", query = "from Comment where blogId=:blogId"),
+		@NamedQuery(name = "Comment.delete", query = "delete Comment where id=:id") })
 @Table(indexes = { @Index(columnList = "id") })
 public class Comment {
 
@@ -20,9 +24,12 @@ public class Comment {
 
 	private String publisher;
 
+	@Column(columnDefinition = "TEXT")
 	private String content;
 
 	private Long blogId;
+
+	private Date datePublished;
 
 	public Long getId() {
 		return id;
@@ -54,5 +61,13 @@ public class Comment {
 
 	public void setBlogId(Long blogId) {
 		this.blogId = blogId;
+	}
+
+	public Date getDatePublished() {
+		return datePublished;
+	}
+
+	public void setDatePublished(Date datePublished) {
+		this.datePublished = datePublished;
 	}
 }

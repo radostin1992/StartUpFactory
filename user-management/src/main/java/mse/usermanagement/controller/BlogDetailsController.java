@@ -1,9 +1,10 @@
 package mse.usermanagement.controller;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 
-import javax.faces.view.ViewScoped;
+import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
@@ -13,9 +14,11 @@ import mse.usermanagement.service.BlogService;
 import mse.usermanagement.service.CommentService;
 
 @Named
-@ViewScoped
+@SessionScoped
 public class BlogDetailsController implements Serializable {
 	private Blog blog;
+
+	private Comment comment;
 
 	@Inject
 	private BlogService blogService;
@@ -23,9 +26,14 @@ public class BlogDetailsController implements Serializable {
 	@Inject
 	private CommentService commentService;
 
+	@Inject
+	private IdentityController identityController;
+
 	private Long id;
 
 	private List<Comment> comments;
+
+	private String publisher;
 
 	public void onPageLoad() {
 		if (id != null) {
@@ -39,6 +47,26 @@ public class BlogDetailsController implements Serializable {
 
 	public void loadComments() {
 		comments = commentService.getCommentsForBlogWithId(id);
+		comment = new Comment();
+	}
+
+	public String addComment() {
+		comment.setPublisher(identityController.getCurrentUser().getUsername());
+		comment.setDatePublished(new Date());
+		comment.setBlogId(blog.getId());
+		commentService.save(comment);
+
+		loadComments();
+
+		return "blogDetails?id=" + blog.getId() + "&faces-redirect=true";
+
+	}
+
+	public String deleteComment(Comment comment) {
+		commentService.delete(comment);
+		loadComments();
+
+		return "blogDetails?id=" + blog.getId() + "&faces-redirect=true";
 	}
 
 	public Blog getBlog() {
@@ -79,5 +107,29 @@ public class BlogDetailsController implements Serializable {
 
 	public void setComments(List<Comment> comments) {
 		this.comments = comments;
+	}
+
+	public IdentityController getIdentityController() {
+		return identityController;
+	}
+
+	public void setIdentityController(IdentityController identityController) {
+		this.identityController = identityController;
+	}
+
+	public Comment getComment() {
+		return comment;
+	}
+
+	public void setComment(Comment comment) {
+		this.comment = comment;
+	}
+
+	public String getPublisher() {
+		return publisher;
+	}
+
+	public void setPublisher(String publisher) {
+		this.publisher = publisher;
 	}
 }

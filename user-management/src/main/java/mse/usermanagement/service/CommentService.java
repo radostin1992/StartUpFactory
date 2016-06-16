@@ -3,12 +3,15 @@ package mse.usermanagement.service;
 import java.io.Serializable;
 import java.util.List;
 
+import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 
 import mse.usermanagement.model.Comment;
 
+@Stateless
 public class CommentService implements Serializable {
 	@PersistenceContext
 	private EntityManager entityManager;
@@ -22,5 +25,15 @@ public class CommentService implements Serializable {
 		} else {
 			return result;
 		}
+	}
+
+	public void save(Comment comment) {
+		entityManager.merge(comment);
+	}
+
+	public void delete(Comment comment) {
+		Query query = entityManager.createNamedQuery("Comment.delete");
+		query.setParameter("id", comment.getId());
+		query.executeUpdate();
 	}
 }
